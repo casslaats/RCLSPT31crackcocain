@@ -22,9 +22,10 @@
 <script type="text/javascript">
   var videoInput = document.getElementById('inputVideo');
   var positions;
-  var distanceTemple;
+  var distanceMouth;
   var i = 0;
   var ctracker = new clm.tracker();
+  var gemiddeldeWaarde = [];
   ctracker.init(pModel);
   ctracker.start(videoInput);
   getVideo();
@@ -32,7 +33,7 @@
   
 
 
-  //DRAW CANVAS testGIT
+  //DRAW CANVAS 
   
   function drawLoop() {
     positions = ctracker.getCurrentPosition();  
@@ -60,12 +61,8 @@
     cc.clearRect(0, 0, canvasInput.width, canvasInput.height);
     cc.beginPath();
     cc.moveTo(pos44[0], pos44[1]);
-    // cc.lineTo(pos7[0], pos7[1]);
     cc.lineTo(pos50[0],pos50[1]);
-    // cc.lineTo(pos1[0],pos1[1]);
     cc.closePath();
-    // cc.fillStyle = "rgba(255,0,0,0.2)"
-    // cc.fill();
     cc.stroke();
 
     cc.strokeStyle = "#91FF00";
@@ -77,16 +74,16 @@
 
 
 
-    distanceTemple = lineDistance(pos44[0],pos44[1],pos50[0],pos50[1]);
+    distanceMouth = lineDistance(pos44[0],pos44[1],pos50[0],pos50[1]);
     var templeDistance = document.getElementById('templeDistance');
-    templeDistance.innerHTML = distanceTemple;
+    templeDistance.innerHTML = distanceMouth;
 
     distanceEyes = lineDistance(pos27[0],pos27[1],pos32[0],pos32[1]);
     var eyeDistance = document.getElementById('eyeDistance');
     eyeDistance.innerHTML = distanceEyes;
 
     var total = document.getElementById('TOTAL');  
-    total.innerHTML = distanceTemple / distanceEyes;
+    total.innerHTML = averageValue(distanceMouth / distanceEyes);
   }
 
   function getVideo(){
@@ -123,5 +120,17 @@
         }
       }
       return distance;
+    }
+
+    function averageValue(value){
+      gemiddeldeWaarde.unshift(value);
+      gemiddeldeWaarde = gemiddeldeWaarde.slice(0, 20);
+      var gemiddeld = 0;
+      for (var x= 0 ; x<gemiddeldeWaarde.length; x++){
+          gemiddeld = gemiddeld + x;
+      }
+      gemiddeld = gemiddeld/gemiddeldeWaarde.length;
+      return gemiddeld;
+
     }
 </script>
