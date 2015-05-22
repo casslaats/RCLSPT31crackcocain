@@ -91,7 +91,7 @@
     var video = document.getElementById('inputVideo');
 
     navigator.webkitGetUserMedia(
-      {video: true, audio: true}, // Options
+      {video: true, audio: false}, // Options
       function(localMediaStream) { // Success
         stream = localMediaStream;
         video.src = window.URL.createObjectURL(stream);
