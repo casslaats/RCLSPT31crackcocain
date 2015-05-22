@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<meta charset="utf-8"/>
+<script src="js/clmtrackr.min.js"></script>
+<script src="js/model_pca_20_svm.js"></script>
+<link rel="stylesheet" href="css/style.css">
+
+<video id="inputVideo" width="800" height="600" autoplay loop>
+<!--   <source src="img/cas.ogv" type="video/ogg"/> -->
+</video>
+<canvas id="drawCanvas" width="800" height="600"></canvas>
+
+<div id="templeDistance">
+   
+</div>
+<div id ="eyeDistance">
+
+</div>
+<div id ="TOTAL">
+  </div>
+
+
+<script type="text/javascript">
+  var videoInput = document.getElementById('inputVideo');
+  var positions;
+  var distanceTemple;
+  var i = 0;
+  var ctracker = new clm.tracker();
+  ctracker.init(pModel);
+  ctracker.start(videoInput);
+  getVideo();
+  drawLoop();
+  
+
+
+  //DRAW CANVAS
+  
+  function drawLoop() {
+    positions = ctracker.getCurrentPosition();  
+
+    var canvasInput = document.getElementById('drawCanvas');
+    var cc = canvasInput.getContext('2d');
+    
+    requestAnimationFrame(drawLoop);
+    var pos1 = positions[0];
+    var pos7 = positions[7];
+
+    var pos14 = positions[14];
+
+    var pos25 = positions[25];
+    var pos27 = positions[27];
+
+    var pos30 = positions[30];
+    var pos32 = positions[32];
+
+    var pos44 = positions[44];
+    var pos50 = positions[50];
+    
+    cc.strokeStyle = "#FF000F";
+
+    cc.clearRect(0, 0, canvasInput.width, canvasInput.height);
+    cc.beginPath();
+    cc.moveTo(pos44[0], pos44[1]);
+    // cc.lineTo(pos7[0], pos7[1]);
+    cc.lineTo(pos50[0],pos50[1]);
+    // cc.lineTo(pos1[0],pos1[1]);
+    cc.closePath();
+    // cc.fillStyle = "rgba(255,0,0,0.2)"
+    // cc.fill();
+    cc.stroke();
+
+    cc.strokeStyle = "#91FF00";
+    cc.beginPath();
+    cc.moveTo(pos27[0],pos27[1]);
+    cc.lineTo(pos32[0],pos32[1]);
+    cc.closePath();
+    cc.stroke();
+
+
+
+    distanceTemple = lineDistance(pos44[0],pos44[1],pos50[0],pos50[1]);
+    var templeDistance = document.getElementById('templeDistance');
+    templeDistance.innerHTML = distanceTemple;
+
+    distanceEyes = lineDistance(pos27[0],pos27[1],pos32[0],pos32[1]);
+    var eyeDistance = document.getElementById('eyeDistance');
+    eyeDistance.innerHTML = distanceEyes;
+
+    var total = document.getElementById('TOTAL');  
+    total.innerHTML = distanceTemple / distanceEyes;
+  }
+
+  function getVideo(){
+    var stream;
+    var video = document.getElementById('inputVideo');
+
+    navigator.webkitGetUserMedia(
+      {video: true, audio: true}, // Options
+      function(localMediaStream) { // Success
+        stream = localMediaStream;
+        video.src = window.URL.createObjectURL(stream);
+      },
+      function(err) { // Failure
+        alert('getUserMedia failed: Code ' + err.code);
+      }
+    );
+  }
+
+  function lineDistance( x1,y1,x2,y2 )
+    {
+      var distance = 0;
+
+      if(y1 == y2){
+        distance = x2 - x1;
+      }
+      else{
+        var A = Math.abs(y2-y1);
+        var B = Math.abs(x2-x1);
+        var C = (A*A)+(B*B);
+        distance = Math.sqrt(C);
+        if(i <11 ){
+          console.log(A,B,C);
+          i++;
+        }
+      }
+      return distance;
+    }
+</script>
