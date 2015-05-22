@@ -124,11 +124,13 @@
 
     function averageValue(value){
       gemiddeldeWaarde.unshift(value);
-      gemiddeldeWaarde = gemiddeldeWaarde.slice(0, 20);
+      gemiddeldeWaarde = gemiddeldeWaarde.slice(0,1000);
       var gemiddeld = 0;
       for (var x= 0 ; x<gemiddeldeWaarde.length; x++){
-          gemiddeld = gemiddeld + x;
+          gemiddeld = gemiddeld + gemiddeldeWaarde[x];
       }
+      console.log(gemiddeldeWaarde.length);
+      console.log(gemiddeld);
       gemiddeld = gemiddeld/gemiddeldeWaarde.length;
       return gemiddeld;
 
