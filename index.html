@@ -90,23 +90,25 @@
 
     timer++;
     if(timer == 400){
-      getShape(shapeValue);
+
+      var shapeChoice = getShape(shapeValue);
     }
-      // if(shape == "triangle"){
 
 
-      // }
+      if(shapeChoice == "triangle"){
 
-      // else if(shape == "square"){
 
+        console.log("got this back:"+shapeChoice);
+      }
+
+      else if(shapeChoice == "square"){
+          console.log("got this back:"+shapeChoice);
         
-      // }
-      // else if(shape == "circle"){
-
+      }
+      else if(shapeChoice == "circle"){
+          console.log("got this back:"+shapeChoice);
         
-      // }
-
-  }
+      }
 
 
 /*ACCES LIVE VIDEO*/
@@ -162,14 +164,21 @@
     }
 
     function getShape(faceShape){
+      var shapeReturn = "";
       if (faceShape < 0.77){
-         console.log("triangle");
+         // console.log("triangle");
+         shapeReturn = "triangle";
+         return shapeReturn;
        } 
        else if (faceShape >= 0.77 && faceShape< 0.9){
-         console.log("square");
+         // console.log("square");
+         shapeReturn = "square";
+         return shapeReturn;
        } 
        else if (faceShape >= 0.9){
-         console.log("circle");
+         // console.log("circle");
+         shapeReturn = "circle";
+         return shapeReturn;
       }
     }
 
