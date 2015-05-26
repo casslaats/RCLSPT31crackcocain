@@ -28,6 +28,7 @@
   var ctracker = new clm.tracker();
   var averageValue = [];
   var shapeValue = 0;
+  var timer = 0;
   ctracker.init(pModel);
   ctracker.start(videoInput);
   getVideo();
@@ -86,6 +87,11 @@
     var total = document.getElementById('TOTAL');  
     shapeValue = getAverageValue(distanceMouth / distanceEyes);
     total.innerHTML = shapeValue;
+    timer++;
+    if(timer == 1000){
+      getShape(shapeValue);
+    }
+
   }
 
 
@@ -141,7 +147,7 @@
       return average;
     }
 
-    function shape(average){
+    function getShape(average){
       if (average < 0.77) {
         alert('triangle');
       }
