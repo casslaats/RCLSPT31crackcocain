@@ -26,15 +26,14 @@
   var distanceMouth;
   var i = 0;
   var ctracker = new clm.tracker();
-  var gemiddeldeWaarde = [];
+  var averageValue = [];
   ctracker.init(pModel);
   ctracker.start(videoInput);
   getVideo();
   drawLoop();
-  
+ 
 
-
-  //DRAW CANVAS 
+   //DRAW CANVAS 
   
   function drawLoop() {
     positions = ctracker.getCurrentPosition();  
@@ -84,9 +83,11 @@
     eyeDistance.innerHTML = distanceEyes;
 
     var total = document.getElementById('TOTAL');  
-    total.innerHTML = averageValue(distanceMouth / distanceEyes);
+    total.innerHTML = getAverageValue(distanceMouth / distanceEyes);
   }
 
+
+/*ACCES LIVE VIDEO*/
   function getVideo(){
     var stream;
     var video = document.getElementById('inputVideo');
@@ -103,6 +104,7 @@
     );
   }
 
+/*CALCULATE DISTANCE BETWEEN 2 POINTS*/
   function lineDistance( x1,y1,x2,y2 )
     {
       var distance = 0;
@@ -123,17 +125,18 @@
       return distance;
     }
 
-    function averageValue(value){
-      gemiddeldeWaarde.unshift(value);
-      gemiddeldeWaarde = gemiddeldeWaarde.slice(0,1000);
-      var gemiddeld = 0;
-      for (var x= 0 ; x<gemiddeldeWaarde.length; x++){
-          gemiddeld = gemiddeld + gemiddeldeWaarde[x];
+/*CALCULATE AVERAGE VALUE OF AN ARRAY*/
+    function getAverageValue(value){
+      averageValue.unshift(value);
+      averageValue = averageValue.slice(0,1000);
+      var average = 0;
+      for (var x= 0 ; x<averageValue.length; x++){
+          average = average + averageValue[x];
       }
-      console.log(gemiddeldeWaarde.length);
-      console.log(gemiddeld);
-      gemiddeld = gemiddeld/gemiddeldeWaarde.length;
-      return gemiddeld;
+      console.log(averageValue.length);
+      console.log(average);
+      average = average/averageValue.length;
+      return average;
 
     }
 
