@@ -149,8 +149,11 @@
 
     function getShape(faceShape){
       if (faceShape < 0.77) {
-        alert('triangle');
+         console.log("triangle");
+       } else if (faceShape > 0.77 && < 0.9) {
+         console.log("square");
+       } else if (faceShape > 0.9) {
+         console.log("circle");
       }
-
     }
 </script>
