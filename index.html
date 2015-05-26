@@ -75,7 +75,6 @@
     cc.stroke();
 
 
-
     distanceMouth = lineDistance(pos44[0],pos44[1],pos50[0],pos50[1]);
     var templeDistance = document.getElementById('templeDistance');
     templeDistance.innerHTML = distanceMouth;
@@ -87,10 +86,27 @@
     var total = document.getElementById('TOTAL');  
     shapeValue = getAverageValue(distanceMouth / distanceEyes);
     total.innerHTML = shapeValue;
+    
+
     timer++;
     if(timer == 1000){
       getShape(shapeValue);
     }
+
+    
+      if(shape == "triangle"){
+
+
+      }
+
+      else if(shape == "square"){
+
+        
+      }
+      else if(shape == "circle"){
+
+        
+      }
 
   }
 
@@ -156,4 +172,5 @@
          console.log("circle");
       }
     }
+
 </script>
