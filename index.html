@@ -27,6 +27,7 @@
   var i = 0;
   var ctracker = new clm.tracker();
   var averageValue = [];
+  var shapeValue = 0;
   ctracker.init(pModel);
   ctracker.start(videoInput);
   getVideo();
@@ -83,7 +84,8 @@
     eyeDistance.innerHTML = distanceEyes;
 
     var total = document.getElementById('TOTAL');  
-    total.innerHTML = getAverageValue(distanceMouth / distanceEyes);
+    shapeValue = getAverageValue(distanceMouth / distanceEyes);
+    total.innerHTML = shapeValue;
   }
 
 
@@ -137,11 +139,10 @@
       console.log(average);
       average = average/averageValue.length;
       return average;
-
     }
 
     function putInBox(gemiddeld){
-      if (gemiddeld < 0.77) {
+      if (average < 0.77) {
         alert('jij bent lelijk');
       };
     }
