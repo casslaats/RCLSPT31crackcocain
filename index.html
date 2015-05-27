@@ -29,6 +29,7 @@
   var averageValue = [];
   var shapeValue = 0;
   var timer = 0;
+  var graphicSwitch = false;
   ctracker.init(pModel);
   ctracker.start(videoInput);
   getVideo();
@@ -58,9 +59,12 @@
     var pos44 = positions[44];
     var pos50 = positions[50];
     
-    cc.strokeStyle = "#FF000F";
+    
 
     cc.clearRect(0, 0, canvasInput.width, canvasInput.height);
+
+    if (graphicSwitch == false) {
+    cc.strokeStyle = "#FF000F";
     cc.beginPath();
     cc.moveTo(pos44[0], pos44[1]);
     cc.lineTo(pos50[0],pos50[1]);
@@ -73,6 +77,7 @@
     cc.lineTo(pos32[0],pos32[1]);
     cc.closePath();
     cc.stroke();
+    };
 
 /*GET DISTANCE OF CERTAIN POINTS*/
     distanceMouth = lineDistance(pos44[0],pos44[1],pos50[0],pos50[1]);
@@ -94,21 +99,17 @@
       var shapeChoice = getShape(shapeValue);
     }
 
-
-      if(shapeChoice == "triangle"){
-
-
-        console.log("got this back:"+shapeChoice);
-      }
-
-      else if(shapeChoice == "square"){
-          console.log("got this back:"+shapeChoice);
-        
-      }
-      else if(shapeChoice == "circle"){
-          console.log("got this back:"+shapeChoice);
-        
-      }
+    if (graphicSwitch == true) {
+          if(shapeChoice == "triangle"){
+            console.log("got this back: "+shapeChoice);
+          }
+          else if(shapeChoice == "square"){
+              console.log("got this back: "+shapeChoice); 
+          }
+          else if(shapeChoice == "circle"){
+              console.log("got this back: "+shapeChoice);
+          }
+      };
 
 
 /*ACCES LIVE VIDEO*/
@@ -168,16 +169,19 @@
       if (faceShape < 0.77){
          // console.log("triangle");
          shapeReturn = "triangle";
+         graphicSwitch = true;
          return shapeReturn;
        } 
        else if (faceShape >= 0.77 && faceShape< 0.9){
          // console.log("square");
          shapeReturn = "square";
+         graphicSwitch = true;
          return shapeReturn;
        } 
        else if (faceShape >= 0.9){
          // console.log("circle");
          shapeReturn = "circle";
+         graphicSwitch = true;
          return shapeReturn;
       }
     }
