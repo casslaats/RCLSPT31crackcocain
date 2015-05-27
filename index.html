@@ -4,9 +4,9 @@
 <script src="js/model_pca_20_svm.js"></script>
 <link rel="stylesheet" href="css/style.css">
 
-<video id="inputVideo" width="800" height="600" autoplay loop>
+<video id="inputVideo" width="1440" height="960" autoplay loop>
 </video>
-<canvas id="drawCanvas" width="800" height="600"></canvas>
+<canvas id="drawCanvas" width="1440" height="960"></canvas>
 
 <div id="templeDistance">
    
@@ -30,12 +30,8 @@
   var shapeValue = 0;
   var timer = 0;
   var shapeChoice;
+  var graphicSwitch = false;
  
-  var booleanTicker;
-
-  if (booleanTicker != 1) {
-      graphicSwitch = false;
-  };
 
   ctracker.init(pModel);
   ctracker.start(videoInput);
@@ -43,7 +39,7 @@
   drawLoop();
  
 
-   //DRAW CANVAS 
+//DRAW CANVAS 
   
   function drawLoop() {
     positions = ctracker.getCurrentPosition();  
@@ -71,34 +67,35 @@
     cc.clearRect(0, 0, canvasInput.width, canvasInput.height);
 
     if (graphicSwitch == false) {
-    cc.strokeStyle = "#FF000F";
-    cc.beginPath();
-    cc.moveTo(pos44[0], pos44[1]);
-    cc.lineTo(pos50[0],pos50[1]);
-    cc.closePath();
-    cc.stroke();
+      cc.strokeStyle = "#FF000F";
+      cc.beginPath();
+      cc.moveTo(pos44[0], pos44[1]);
+      cc.lineTo(pos50[0],pos50[1]);
+      cc.closePath();
+      cc.stroke();
 
-    cc.strokeStyle = "#91FF00";
-    cc.beginPath();
-    cc.moveTo(pos27[0],pos27[1]);
-    cc.lineTo(pos32[0],pos32[1]);
-    cc.closePath();
-    cc.stroke();
-    }
+      cc.strokeStyle = "#91FF00";
+      cc.beginPath();
+      cc.moveTo(pos27[0],pos27[1]);
+      cc.lineTo(pos32[0],pos32[1]);
+      cc.closePath();
+      cc.stroke();
+      
 
 /*GET DISTANCE OF CERTAIN POINTS*/
-    distanceMouth = lineDistance(pos44[0],pos44[1],pos50[0],pos50[1]);
-    var templeDistance = document.getElementById('templeDistance');
-    templeDistance.innerHTML = distanceMouth;
 
-    distanceEyes = lineDistance(pos27[0],pos27[1],pos32[0],pos32[1]);
-    var eyeDistance = document.getElementById('eyeDistance');
-    eyeDistance.innerHTML = distanceEyes;
+      distanceMouth = lineDistance(pos44[0],pos44[1],pos50[0],pos50[1]);
+      var templeDistance = document.getElementById('templeDistance');
+      templeDistance.innerHTML = distanceMouth;
 
-    var total = document.getElementById('TOTAL');  
-    shapeValue = getAverageValue(distanceMouth / distanceEyes);
-    total.innerHTML = shapeValue;
-    
+      distanceEyes = lineDistance(pos27[0],pos27[1],pos32[0],pos32[1]);
+      var eyeDistance = document.getElementById('eyeDistance');
+      eyeDistance.innerHTML = distanceEyes;
+
+      var total = document.getElementById('TOTAL');  
+      shapeValue = getAverageValue(distanceMouth / distanceEyes);
+      total.innerHTML = shapeValue;
+    }
 
     timer++;
     if(timer == 400){
@@ -210,7 +207,6 @@
 
     function getShape(faceShape){
       var shapeReturn = "";
-      booleanTicker = 1;
       graphicSwitch = true;
 
       if (faceShape < 0.77){
