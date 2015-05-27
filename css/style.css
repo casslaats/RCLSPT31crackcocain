@@ -5,8 +5,8 @@ body{
 
 video, #drawCanvas{
 		position: fixed;
-		margin-top: 0px;
-		margin-left: 0px;
+		margin-top: 0;
+		margin-left: 0;
         -moz-transform: scaleX(-1);
         -o-transform: scaleX(-1);
         -webkit-transform: scaleX(-1);
@@ -15,4 +15,6 @@ video, #drawCanvas{
         -ms-filter: "FlipH";
 }
 
-
+#eyeDistance, #templeDistance, #TOTAL{
+	visibility: hidden;
+}
