@@ -6,7 +6,7 @@ body{
 video, #drawCanvas{
 		position: fixed;
 		margin-top: 0;
-		margin-left: 0;
+		margin-left: 200px;
         -moz-transform: scaleX(-1);
         -o-transform: scaleX(-1);
         -webkit-transform: scaleX(-1);
@@ -15,6 +15,11 @@ video, #drawCanvas{
         -ms-filter: "FlipH";
 }
 
-#eyeDistance, #templeDistance, #TOTAL{
-	visibility: hidden;
+
+
+#displayNumbers{
+	position: fixed;
+	bottom: 100px;
+	color: white;
+
 }
