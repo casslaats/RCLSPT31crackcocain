@@ -211,17 +211,17 @@
       var shapeReturn = "";
       graphicSwitch = true;
 
-      if (faceShape < 0.77){
+      if (faceShape < 0.60){
          // console.log("triangle");
          shapeReturn = "triangle";
          return shapeReturn;
        } 
-       else if (faceShape >= 0.77 && faceShape< 0.9){
+       else if (faceShape >= 0.60 && faceShape< 0.85){
          // console.log("square");
          shapeReturn = "square";
          return shapeReturn;
        } 
-       else if (faceShape >= 0.9){
+       else if (faceShape >= 0.85){
          // console.log("circle");
          shapeReturn = "circle";
          return shapeReturn;
