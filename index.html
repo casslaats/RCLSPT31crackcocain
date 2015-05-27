@@ -29,7 +29,13 @@
   var averageValue = [];
   var shapeValue = 0;
   var timer = 0;
-  var graphicSwitch = false;
+  var shapeChoice;
+ 
+  var booleanTicker;
+
+  if (booleanTicker != 1) {
+      graphicSwitch = false;
+  };
 
   ctracker.init(pModel);
   ctracker.start(videoInput);
@@ -61,7 +67,7 @@
     var pos50 = positions[50];
     
     
-
+    console.log(graphicSwitch);
     cc.clearRect(0, 0, canvasInput.width, canvasInput.height);
 
     if (graphicSwitch == false) {
@@ -97,19 +103,19 @@
     timer++;
     if(timer == 400){
 
-      var shapeChoice = getShape(shapeValue);
+      shapeChoice = getShape(shapeValue);
     }
 
     if (graphicSwitch == true) {
-      if(shapeChoice == "triangle"){
-        console.log("got this back:"+shapeChoice);
-        
+      
+      if(shapeChoice == "triangle"){  
+        console.log("got this back:"+shapeChoice);      
         cc.strokeStyle = "#FF0000";
         cc.beginPath();
-        cc.moveTo(pos0[0],pos0[1]);
+        cc.moveTo(pos1[0],pos1[1]);
         cc.lineTo(pos7[0],pos7[1]);
         cc.lineTo(pos14[0],pos14[1]);
-        cc.lineTo(pos0[0],pos0[1]);
+        cc.lineTo(pos1[0],pos1[1]);
         cc.closePath();
         cc.fillStyle = "#FF0000";
         cc.fill();
@@ -120,10 +126,10 @@
         console.log("got this back:"+shapeChoice);
         cc.strokeStyle = "#FF0000";
         cc.beginPath();
-        cc.moveTo(pos0[0],pos0[1]);
+        cc.moveTo(pos1[0],pos1[1]);
         cc.lineTo(pos7[0],pos7[1]);
         cc.lineTo(pos14[0],pos14[1]);
-        cc.lineTo(pos0[0],pos0[1]);
+        cc.lineTo(pos1[0],pos1[1]);
         cc.closePath();
         cc.fillStyle = "#FF0000";
         cc.fill();
@@ -134,10 +140,10 @@
         console.log("got this back:"+shapeChoice);
         cc.strokeStyle = "#FF0000";
         cc.beginPath();
-        cc.moveTo(pos0[0],pos0[1]);
+        cc.moveTo(pos1[0],pos1[1]);
         cc.lineTo(pos7[0],pos7[1]);
         cc.lineTo(pos14[0],pos14[1]);
-        cc.lineTo(pos0[0],pos0[1]);
+        cc.lineTo(pos1[0],pos1[1]);
         cc.closePath();
         cc.fillStyle = "#FF0000";
         cc.fill();
@@ -145,6 +151,8 @@
         
       }
    }
+}
+
 
 
 /*ACCES LIVE VIDEO*/
@@ -201,6 +209,7 @@
 
     function getShape(faceShape){
       var shapeReturn = "";
+      booleanTicker = 1;
       graphicSwitch = true;
 
       if (faceShape < 0.77){
