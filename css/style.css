@@ -3,7 +3,7 @@ body{
         background-color: black;
 }
 
-video, #drawCanvas{
+video, #drawCanvas, #container{
 	position: absolute;
 	margin-top: 0;
 	margin-left: 200px;
@@ -14,6 +14,8 @@ video, #drawCanvas{
         filter: FlipH;
         -ms-filter: "FlipH";
 }
+
+
 
 #displayNumbers{
 	position: fixed;

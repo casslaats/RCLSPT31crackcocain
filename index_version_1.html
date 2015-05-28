@@ -2,16 +2,11 @@
 <meta charset="utf-8"/>
 <script src="js/clmtrackr.min.js"></script>
 <script src="js/model_pca_20_svm.js"></script>
-<script src="js/three.min.js"></script>
-<script src="js/drawCircle.js"></script>
-<script src="js/drawTriangle.js"></script>
-<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
 <link rel="stylesheet" href="css/style.css">
 
 <video id="inputVideo" width="800" height="600" autoplay loop>
 </video>
 <canvas id="drawCanvas" width="800" height="600"></canvas>
-<div id="container"> </div>
 <div id="displayNumbers">
 <div id="templeDistance">
    
@@ -37,8 +32,7 @@
   var timer = 0;
   var shapeChoice;
   var graphicSwitch = false;
-  var renderer = new THREE.WebGLRenderer( { alpha: true } );;
-
+ 
 
   ctracker.init(pModel);
   ctracker.start(videoInput);
@@ -73,10 +67,6 @@
 
     var pos44 = positions[44];
     var pos50 = positions[50];
-
-    var pos41 = positions[41];
-
-    var pos62 = positions[62];
     
     
     console.log(graphicSwitch);
@@ -114,7 +104,7 @@
     }
 
     timer++;
-    if(timer == 100){
+    if(timer == 400){
 
       shapeChoice = getShape(shapeValue);
     }
@@ -122,7 +112,48 @@
 /*DRAW GRAPHIC ON FACE*/
     if (graphicSwitch == true) {
       
-      drawCircle((pos41[0]),pos41[1], lineDistance(pos1[0],pos1[1],pos13[0],pos13[1]));
+      if(shapeChoice == "triangle"){  
+        console.log("got this back:"+shapeChoice); 
+        var correction1 = lineDistance(pos0[0],pos0[1], pos2[0],pos2[1])*2;     
+        cc.strokeStyle = "#FF0000";
+        cc.beginPath();
+        cc.moveTo(pos0[0] - correction1, pos0[1]- correction1);
+        cc.lineTo(pos14[0] + correction1,pos14[1] - correction1);
+        cc.lineTo(pos7[0],pos7[1] + correction1);
+        cc.lineTo(pos0[0] - correction1, pos0[1]- correction1);;
+        cc.closePath();
+        cc.fillStyle = "#FF0000";
+        cc.fill();
+        cc.stroke();
+      }
+
+      else if(shapeChoice == "square"){
+        console.log("got this back:"+shapeChoice);
+        cc.strokeStyle = "#FF0000";
+        cc.beginPath();
+        var correction1 = lineDistance(pos0[0],pos0[1], pos1[0],pos1[1]);
+        cc.moveTo(pos0[0] - correction1, pos0[1]- correction1*2);
+        cc.lineTo(pos14[0] + correction1,pos14[1] - correction1*2);
+        var rectLenght = lineDistance(pos0[0] - correction1, pos0[1]- correction1*2, pos14[0] + correction1,pos14[1] - correction1*2);
+        cc.lineTo(pos14[0] + correction1, pos0[1]- correction1*2 + rectLenght);
+        cc.lineTo(pos0[0] - correction1 , pos0[1]- correction1*2 + rectLenght);
+        cc.closePath();
+        cc.fillStyle = "#FF0000";
+        cc.fill();
+        cc.stroke();
+        
+      }
+      else if(shapeChoice == "circle"){
+        console.log("got this back:"+shapeChoice);
+        cc.strokeStyle = "#FF0000";
+        cc.beginPath();
+        cc.arc(pos37[0], pos37[1], lineDistance(pos1[0],pos1[1],pos13[0],pos13[1]), 0, 2 * Math.PI);
+        cc.closePath();
+        cc.fillStyle = "#FF0000";
+        cc.fill();
+        cc.stroke();
+        
+      }
    }
 }
 
@@ -200,8 +231,5 @@
          return shapeReturn;
       }
     }
-
-
-
 
 </script>
