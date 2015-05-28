@@ -49,9 +49,12 @@
     var cc = canvasInput.getContext('2d');
     
     requestAnimationFrame(drawLoop);
-    var pos1 = positions[0];
+    var pos0 = positions[0];
+    var pos1 = positions[1];
+    var pos2 = positions[2];
     var pos7 = positions[7];
 
+    var pos13 = positions[13];
     var pos14 = positions[14];
 
     var pos25 = positions[25];
@@ -59,6 +62,8 @@
 
     var pos30 = positions[30];
     var pos32 = positions[32];
+
+    var pos37 = positions[37];
 
     var pos44 = positions[44];
     var pos50 = positions[50];
@@ -108,13 +113,14 @@
     if (graphicSwitch == true) {
       
       if(shapeChoice == "triangle"){  
-        console.log("got this back:"+shapeChoice);      
+        console.log("got this back:"+shapeChoice); 
+        var correction1 = lineDistance(pos0[0],pos0[1], pos2[0],pos2[1])*2;     
         cc.strokeStyle = "#FF0000";
         cc.beginPath();
-        cc.moveTo(pos1[0],pos1[1]);
-        cc.lineTo(pos7[0],pos7[1]);
-        cc.lineTo(pos14[0],pos14[1]);
-        cc.lineTo(pos1[0],pos1[1]);
+        cc.moveTo(pos0[0] - correction1, pos0[1]- correction1);
+        cc.lineTo(pos14[0] + correction1,pos14[1] - correction1);
+        cc.lineTo(pos7[0],pos7[1] + correction1);
+        cc.lineTo(pos0[0] - correction1, pos0[1]- correction1);;
         cc.closePath();
         cc.fillStyle = "#FF0000";
         cc.fill();
@@ -125,11 +131,12 @@
         console.log("got this back:"+shapeChoice);
         cc.strokeStyle = "#FF0000";
         cc.beginPath();
-        cc.moveTo(pos27[0],pos27[1]);
-        cc.lineTo(pos32[0],pos32[1]);
-        cc.lineTo(pos32[0],pos50[1]);
-        cc.lineTo(pos27[0],pos50[1]);
-        cc.lineTo(pos27[0],pos27[1]);
+        var correction1 = lineDistance(pos0[0],pos0[1], pos1[0],pos1[1]);
+        cc.moveTo(pos0[0] - correction1, pos0[1]- correction1*2);
+        cc.lineTo(pos14[0] + correction1,pos14[1] - correction1*2);
+        var rectLenght = lineDistance(pos0[0] - correction1, pos0[1]- correction1*2, pos14[0] + correction1,pos14[1] - correction1*2);
+        cc.lineTo(pos14[0] + correction1, pos0[1]- correction1*2 + rectLenght);
+        cc.lineTo(pos0[0] - correction1 , pos0[1]- correction1*2 + rectLenght);
         cc.closePath();
         cc.fillStyle = "#FF0000";
         cc.fill();
@@ -140,10 +147,7 @@
         console.log("got this back:"+shapeChoice);
         cc.strokeStyle = "#FF0000";
         cc.beginPath();
-        cc.moveTo(pos1[0],pos1[1]);
-        cc.lineTo(pos7[0],pos7[1]);
-        cc.lineTo(pos14[0],pos14[1]);
-        cc.lineTo(pos1[0],pos1[1]);
+        cc.arc(pos37[0], pos37[1], lineDistance(pos1[0],pos1[1],pos13[0],pos13[1]), 0, 2 * Math.PI);
         cc.closePath();
         cc.fillStyle = "#FF0000";
         cc.fill();
@@ -211,12 +215,12 @@
       var shapeReturn = "";
       graphicSwitch = true;
 
-      if (faceShape < 0.60){
+      if (faceShape < 0.70){
          // console.log("triangle");
          shapeReturn = "triangle";
          return shapeReturn;
        } 
-       else if (faceShape >= 0.60 && faceShape< 0.85){
+       else if (faceShape >= 0.70 && faceShape< 0.85){
          // console.log("square");
          shapeReturn = "square";
          return shapeReturn;
