@@ -53,7 +53,7 @@ function drawTriangle(posx,posy,getRadius){
     // the sphereMaterial next!
     var triangle = new THREE.Mesh(
 
-      new THREE.PolyhedronGeometry(
+      new THREE.TetrahedronGeometry(
         radius,
         detail),
 
