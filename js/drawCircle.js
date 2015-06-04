@@ -71,8 +71,8 @@ function drawCircle(posx,posy,getRadius){
     if(posy < 150){
       sphere.position.y = 300-posy;
     }
-    console.log(-Math.abs(posy)+300);
-    console.log(sphere.position.y);
+    // console.log(-Math.abs(posy)+300);
+    // console.log(sphere.position.y);
 
     // add the sphere to the scene
     scene.add(sphere);

@@ -57,10 +57,10 @@
     var pos13 = positions[13];
     var pos14 = positions[14];
 
-    var pos25 = positions[25];
+    // var pos25 = positions[25];
     var pos27 = positions[27];
 
-    var pos30 = positions[30];
+    // var pos30 = positions[30];
     var pos32 = positions[32];
 
     var pos37 = positions[37];
@@ -73,14 +73,14 @@
     cc.clearRect(0, 0, canvasInput.width, canvasInput.height);
 
     if (graphicSwitch == false) {
-      cc.strokeStyle = "#FF000F";
+      cc.strokeStyle = "#0000ff";
       cc.beginPath();
       cc.moveTo(pos44[0], pos44[1]);
       cc.lineTo(pos50[0],pos50[1]);
       cc.closePath();
       cc.stroke();
 
-      cc.strokeStyle = "#91FF00";
+      cc.strokeStyle = "#0000ff";
       cc.beginPath();
       cc.moveTo(pos27[0],pos27[1]);
       cc.lineTo(pos32[0],pos32[1]);
@@ -115,21 +115,21 @@
       if(shapeChoice == "triangle"){  
         console.log("got this back:"+shapeChoice); 
         var correction1 = lineDistance(pos0[0],pos0[1], pos2[0],pos2[1])*2;     
-        cc.strokeStyle = "#FF0000";
+        cc.strokeStyle = "#0000ff";
         cc.beginPath();
         cc.moveTo(pos0[0] - correction1, pos0[1]- correction1);
         cc.lineTo(pos14[0] + correction1,pos14[1] - correction1);
         cc.lineTo(pos7[0],pos7[1] + correction1);
         cc.lineTo(pos0[0] - correction1, pos0[1]- correction1);;
         cc.closePath();
-        cc.fillStyle = "#FF0000";
+        cc.fillStyle = "#0000ff";
         cc.fill();
         cc.stroke();
       }
 
       else if(shapeChoice == "square"){
         console.log("got this back:"+shapeChoice);
-        cc.strokeStyle = "#FF0000";
+        cc.strokeStyle = "#0000ff";
         cc.beginPath();
         var correction1 = lineDistance(pos0[0],pos0[1], pos1[0],pos1[1]);
         cc.moveTo(pos0[0] - correction1, pos0[1]- correction1*2);
@@ -138,18 +138,18 @@
         cc.lineTo(pos14[0] + correction1, pos0[1]- correction1*2 + rectLenght);
         cc.lineTo(pos0[0] - correction1 , pos0[1]- correction1*2 + rectLenght);
         cc.closePath();
-        cc.fillStyle = "#FF0000";
+        cc.fillStyle = "#0000ff";
         cc.fill();
         cc.stroke();
         
       }
       else if(shapeChoice == "circle"){
         console.log("got this back:"+shapeChoice);
-        cc.strokeStyle = "#FF0000";
+        cc.strokeStyle = "#0000ff";
         cc.beginPath();
         cc.arc(pos37[0], pos37[1], lineDistance(pos1[0],pos1[1],pos13[0],pos13[1]), 0, 2 * Math.PI);
         cc.closePath();
-        cc.fillStyle = "#FF0000";
+        cc.fillStyle = "#0000ff";
         cc.fill();
         cc.stroke();
         
@@ -160,21 +160,42 @@
 
 
 /*ACCES LIVE VIDEO*/
-  function getVideo(){
-    var stream;
-    var video = document.getElementById('inputVideo');
+function getVideo(){
+navigator.getUserMedia = navigator.getUserMedia||navigator.webkitGetUserMedia||navigator.mozGetUserMedia;
 
-    navigator.webkitGetUserMedia(
-      {video: true, audio: false}, // Options
-      function(localMediaStream) { // Success
-        stream = localMediaStream;
-        video.src = window.URL.createObjectURL(stream);
+if (navigator.getUserMedia) {
+   navigator.getUserMedia({ audio: false, video: true },
+      function(stream) {
+         var video = document.querySelector('video');
+         video.src = window.URL.createObjectURL(stream);
+         video.onloadedmetadata = function(e) {
+           video.play();
+         };
       },
-      function(err) { // Failure
-        alert('getUserMedia failed: Code ' + err.code);
+      function(err) {
+         console.log("The following error occured: " + err.name);
       }
-    );
-  }
+   );
+} else {
+   console.log("getUserMedia not supported");
+}
+}
+
+  // function getVideo(){
+  //   var stream;
+  //   var video = document.getElementById('inputVideo');
+
+  //   navigator.webkitGetUserMedia(
+  //     {video: true, audio: false}, // Options
+  //     function(localMediaStream) { // Success
+  //       stream = localMediaStream;
+  //       video.src = window.URL.createObjectURL(stream);
+  //     },
+  //     function(err) { // Failure
+  //       alert('getUserMedia failed: Code ' + err.code);
+  //     }
+  //   );
+  // }
 
 /*CALCULATE DISTANCE BETWEEN 2 POINTS*/
   function lineDistance( x1,y1,x2,y2 )
