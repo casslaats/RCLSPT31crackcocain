@@ -1,4 +1,6 @@
-function drawTriangle(posx,posy,getRadius){
+
+  var rotation = 0;
+function drawCube(posx,posy,getRadius){
 
 
   var WIDTH = 800,
@@ -51,29 +53,31 @@ function drawTriangle(posx,posy,getRadius){
     // create a new mesh with
     // sphere geometry - we will cover
     // the sphereMaterial next!
-    var triangle = new THREE.Mesh(
+    var cube = new THREE.Mesh(
 
-      new THREE.TetrahedronGeometry(
-        radius,
-        detail),
+      new THREE.BoxGeometry(
+        getRadius,getRadius,getRadius),
 
       sphereMaterial);
-    triangle.position.x = (posx -400);
+    cube.position.x = (posx -400);
     if(posy>=300){
-      triangle.position.y = -Math.abs(posy)+300;
+      cube.position.y = -Math.abs(posy)+300;
     }
     if(posy == 150){
-      triangle.position.y = posy;
+      cube.position.y = posy;
     }
     if(posy >150 && posy <300){
-      triangle.position.y = 300-posy;
+      cube.position.y = 300-posy;
     }
     if(posy < 150){
-      triangle.position.y = 300-posy;
+      cube.position.y = 300-posy;
     }
-
+    rotation = rotation + 0.01;
+    console.log(rotation);
+    cube.rotation.y = rotation;
+    cube.rotation.x = rotation;
     // add the sphere to the scene
-    scene.add(triangle);
+    scene.add(cube);
 
     // create a point light
     var pointLight =
