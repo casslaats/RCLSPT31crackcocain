@@ -73,7 +73,7 @@ function drawCube(posx,posy,getRadius){
       cube.position.y = 300-posy;
     }
     rotation = rotation + 0.01;
-    console.log(rotation);
+    // console.log(rotation);
     cube.rotation.y = rotation;
     cube.rotation.x = rotation;
     // add the sphere to the scene
