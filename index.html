@@ -1,17 +1,16 @@
 <!DOCTYPE html>
+<html>
 <meta charset="utf-8"/>
 <script src="js/clmtrackr.min.js"></script>
 <script src="js/model_pca_20_svm.js"></script>
 <script src="js/three.min.js"></script>
-<script src="js/drawCircle.js"></script>
-<script src="js/drawTriangle.js"></script>
-<script src="js/drawCube.js"></script>
+<script type="text/javascript" src="js/drawShapes.js"></script>
+<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
 <script src="server/node_modules/socket.io/node_modules/socket.io-client/socket.io.js"></script>
 <script src="server/connect.js"></script>
-<!-- <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script> -->
-
 <link rel="stylesheet" href="css/style.css">
 
+<body>
 <video id="inputVideo" width="800" height="600" autoplay loop>
 </video>
 <canvas id="drawCanvas" width="800" height="600"></canvas>
@@ -30,7 +29,7 @@
     </div>
 
 <script type="text/javascript">
-  var shapeChoice = 'triangle';  
+  // var shapeChoice = 'triangle';  
   var videoInput = document.getElementById('inputVideo');
   var positions;
   var distanceMouth;
@@ -45,7 +44,6 @@
   var shapeReturn;
 
   ctracker.init(pModel);
-  connectServer(); //connect
   getVideo();
   ctracker.start(videoInput);
   drawLoop();
@@ -122,20 +120,25 @@
     if(timer == 400){
 
       shapeChoice = getShape(shapeValue);
+      connectServer(); //connect
+
     }
 
 /*DRAW GRAPHIC ON FACE*/
-    if (graphicSwitch == true) {  
-      if (shapeReturn == "circle") {
-        drawCircle((pos41[0]),pos41[1], lineDistance(pos1[0],pos1[1],pos13[0],pos13[1]));
-      }   
-      else if(shapeReturn == "square"){
-        drawCube((pos41[0]),pos41[1], lineDistance(pos1[0],pos1[1],pos13[0],pos13[1]));
+    if (graphicSwitch == true) { 
+
+      if(shapeChoice == "square") 
+      {   
+         drawShape(shapeChoice, pos41[0],pos41[1], lineDistance(pos1[0],pos1[1],pos13[0],pos13[1]));
       }
-      else if(shapeReturn == "triangle"){
-        drawCube((pos41[0]),pos41[1], lineDistance(pos1[0],pos1[1],pos13[0],pos13[1]));
+      else if(shapeChoice == "triangle"){
+        drawShape(shapeChoice, pos41[0],pos41[1], lineDistance(pos1[0],pos1[1],pos13[0],pos13[1]));
       }
-  }  
+      else if(shapeChoice == "circle"){
+          drawShape(shapeChoice, pos41[0],pos41[1], lineDistance(pos1[0],pos1[1],pos13[0],pos13[1]));
+      }
+    }
+
 }
 
 
@@ -167,15 +170,9 @@ function getVideo(){
             }
             videoInput.play();
           }, function() {
-            insertAltVideo(videoInput);
-            document.getElementById('gum').className = "hide";
-            document.getElementById('nogum').className = "nohide";
             alert("There was some problem trying to fetch video from your webcam, using a fallback video instead.");
           });
         } else {
-          insertAltVideo(videoInput);
-          document.getElementById('gum').className = "hide";
-          document.getElementById('nogum').className = "nohide";
           alert("Your browser does not seem to support getUserMedia, using a fallback video instead.");
         }
       }
@@ -299,6 +296,5 @@ function getVideo(){
 
 </script>
 
-
-<!-- serverdingen -->
-
+</body>
+</html>
