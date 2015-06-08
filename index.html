@@ -121,8 +121,18 @@
     }
 
 /*DRAW GRAPHIC ON FACE*/
-    if (graphicSwitch == true) {      
-      drawCube((pos41[0]),pos41[1], lineDistance(pos1[0],pos1[1],pos13[0],pos13[1]));
+    if (graphicSwitch == true) { 
+
+      if(shapeChoice == "square") 
+      {   
+         drawCube((pos41[0]),pos41[1], lineDistance(pos1[0],pos1[1],pos13[0],pos13[1]));
+      }
+      else if(graphicSwitch == "triangle"){
+        drawTriangle((pos41[0]),pos41[1], lineDistance(pos1[0],pos1[1],pos13[0],pos13[1]));
+      }
+      else if(graphicSwitch == "circle"){
+          drawCircle((pos41[0]),pos41[1], lineDistance(pos1[0],pos1[1],pos13[0],pos13[1]));
+      }
     }
 }
 
