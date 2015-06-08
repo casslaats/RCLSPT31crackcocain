@@ -53,8 +53,8 @@ var clm = {
 		This sequence is pretty arbitrary, but was found to be okay using some manual testing.
 		*/
 		var varianceSeq = [10,5,1];
-		// var varianceSeq = [3,1.5,0.75];
-		// var varianceSeq = [6,3,0.75];
+		//var varianceSeq = [3,1.5,0.75];
+		//var varianceSeq = [6,3,0.75];
 		var PDMVariance = 0.7;
 		
 		var relaxation = 0.1;

@@ -32,18 +32,18 @@
   var positions;
   var distanceMouth;
   var i = 0;
-  var ctracker = new clm.tracker();
+  var ctracker = new clm.tracker({useWebGL : true});
   var averageValue = [];
   var shapeValue = 0;
   var timer = 0;
   var shapeChoice;
   var graphicSwitch = false;
   var renderer = new THREE.WebGLRenderer( { alpha: true } );;
-
+  var shapeReturn;
 
   ctracker.init(pModel);
-  ctracker.start(videoInput);
   getVideo();
+  ctracker.start(videoInput);
   drawLoop();
  
 
@@ -83,7 +83,7 @@
     // console.log(graphicSwitch);
     cc.clearRect(0, 0, canvasInput.width, canvasInput.height);
 
-    if (graphicSwitch == false) {
+    // if (graphicSwitch == false) {
       cc.strokeStyle = "#FF000F";
       cc.beginPath();
       cc.moveTo(pos44[0], pos44[1]);
@@ -112,10 +112,10 @@
       var total = document.getElementById('TOTAL');  
       shapeValue = getAverageValue(distanceMouth / distanceEyes);
       total.innerHTML = shapeValue;
-    }
+    // }
 
     timer++;
-    if(timer == 100){
+    if(timer == 400){
 
       shapeChoice = getShape(shapeValue);
     }
@@ -134,32 +134,90 @@
           drawCircle((pos41[0]),pos41[1], lineDistance(pos1[0],pos1[1],pos13[0],pos13[1]));
       }
     }
+
 }
 
 
 
 /*ACCES LIVE VIDEO*/
 
+//TEST MODULE//
 function getVideo(){
-navigator.getUserMedia = navigator.getUserMedia||navigator.webkitGetUserMedia||navigator.mozGetUserMedia;
+  navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+        window.URL = window.URL || window.webkitURL || window.msURL || window.mozURL;
 
-if (navigator.getUserMedia) {
-   navigator.getUserMedia({ audio: false, video: true },
-      function(stream) {
-         var video = document.querySelector('video');
-         video.src = window.URL.createObjectURL(stream);
-         video.onloadedmetadata = function(e) {
-           video.play();
-         };
-      },
-      function(err) {
-         console.log("The following error occured: " + err.name);
+        // check for camerasupport
+        if (navigator.getUserMedia) {
+          // set up stream
+          
+          var videoSelector = {video : true};
+          if (window.navigator.appVersion.match(/Chrome\/(.*?) /)) {
+            var chromeVersion = parseInt(window.navigator.appVersion.match(/Chrome\/(\d+)\./)[1], 10);
+            if (chromeVersion < 20) {
+              videoSelector = "video";
+            }
+          };
+        
+          navigator.getUserMedia(videoSelector, function( stream ) {
+            if (videoInput.mozCaptureStream) {
+              videoInput.mozSrcObject = stream;
+            } else {
+              videoInput.src = (window.URL && window.URL.createObjectURL(stream)) || stream;
+            }
+            videoInput.play();
+          }, function() {
+            insertAltVideo(videoInput);
+            document.getElementById('gum').className = "hide";
+            document.getElementById('nogum').className = "nohide";
+            alert("There was some problem trying to fetch video from your webcam, using a fallback video instead.");
+          });
+        } else {
+          insertAltVideo(videoInput);
+          document.getElementById('gum').className = "hide";
+          document.getElementById('nogum').className = "nohide";
+          alert("Your browser does not seem to support getUserMedia, using a fallback video instead.");
+        }
       }
-   );
-} else {
-   console.log("getUserMedia not supported");
-}
-}
+
+// function getVideo(){
+// navigator.getUserMedia = navigator.getUserMedia||navigator.webkitGetUserMedia||navigator.mozGetUserMedia || navigator.msGetUserMedia;
+
+// window.URL = window.URL || window.webkitURL || window.msURL || window.mozURL;
+
+// if (navigator.getUserMedia) {
+//   // var videoSelector = {video: true};
+//   // if (window.navigator.appVersion.match(/Chrome\/(.*?) /)) {
+//   //   var chromeVersion = parseInt(window.navigator.appVersion.match(/Chrome\/(\d+)\./)[1],10);
+//   //   if (chromeVersion < 20) {
+//   //     videoSelector = "video";
+//   //   };
+      
+//   // };
+//   //   navigator.getUserMedia(videoSelector,function(stream){
+//   //     if (vid.mozCaptureStream) {
+//   //       vid.mozSrcObject = stream;
+//   //     };
+//   //     else{
+//   //       vid.src = (wind)
+//   //     }
+//   //   })
+
+//    navigator.getUserMedia({ audio: false, video: true },
+//       function(stream) {
+//          var video = document.querySelector('video');
+//          video.src = window.URL.createObjectURL(stream);
+//          video.onloadedmetadata = function(e) {
+//            video.play();
+//          };
+//       },
+//       function(err) {
+//          console.log("The following error occured: " + err.name);
+//       }
+//    );
+// } else {
+//    console.log("getUserMedia not supported");
+// }
+// }
 
 
 
@@ -215,7 +273,7 @@ if (navigator.getUserMedia) {
     }
 
     function getShape(faceShape){
-      var shapeReturn = "";
+      shapeReturn = "";
       graphicSwitch = true;
 
       if (faceShape < 0.70){
