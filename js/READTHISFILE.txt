@@ -1,0 +1,24 @@
+Hello fellow 3DDEY worshippers,
+This is a guide how to use our library faceYourShape.js.
+
+Make sure before you start using faceYourShape.js that you have an HTML page filled with a video element and a canvas. The id of the video element should be "inputVideo" and the canvas should have an id named "drawCanvas".
+
+Use CSS to place them above each other. (You can check out the example)
+
+replaceFace()
+Calls out our whole project! Everything will be done for you. Your face will be measured and replaced with a certain 3D object.
+
+getVideo() 
+Calling this function will fill your video element with live video of your webcam.
+
+lineDistance(x1,y1,x2,y2)
+Calculates the distance between two points. point1 (x1,y1) and point2 (x2,y2).
+
+getAverageValue(value)
+With this function you can include values and it will return the average of all values you send to it. Up to 1000 places, after that it will replace your first values with your latest values. Great way to measure average face lengths over time.
+
+drawShape(shapeChoice,posx,posy,getRadius)
+This function draws a 3D object. You can choose between "square", "circle" or "triangle" place this in shapeChoice. Postion x and y are the coordinates of the shape, getRadius is the radius.
+
+
+Enjoy!!!
