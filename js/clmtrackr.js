@@ -583,6 +583,9 @@ var clm = {
 				
 				// if norm < limit, then break
 				if (positionNorm < convergenceLimit) {
+					console.log("LET OP");
+					console.log("positienorm" + positionNorm);
+					console.log("convergenceLimit" + convergenceLimit);
 					break;
 				}
 			

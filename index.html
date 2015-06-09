@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <meta charset="utf-8"/>
-<script src="js/clmtrackr.min.js"></script>
+<script src="js/clmtrackr.js"></script>
 <script src="js/model_pca_20_svm.js"></script>
 <script src="js/three.min.js"></script>
 <script type="text/javascript" src="js/drawShapes.js"></script>
@@ -51,13 +51,13 @@
   
   function drawLoop() {
     positions = ctracker.getCurrentPosition();  
-
     var canvasInput = document.getElementById('drawCanvas');
     var cc = canvasInput.getContext('2d');
     
     requestAnimationFrame(drawLoop);
     // var pos0 = positions[0];
     var pos1 = positions[1];
+    console.log(pos1);
     // var pos2 = positions[2];
     // var pos7 = positions[7];
 
@@ -83,7 +83,7 @@
     // console.log(graphicSwitch);
     cc.clearRect(0, 0, canvasInput.width, canvasInput.height);
 
-    // if (graphicSwitch == false) {
+    if (graphicSwitch == false) {
       cc.strokeStyle = "#FF000F";
       cc.beginPath();
       cc.moveTo(pos44[0], pos44[1]);
@@ -112,7 +112,7 @@
       var total = document.getElementById('TOTAL');  
       shapeValue = getAverageValue(distanceMouth / distanceEyes);
       total.innerHTML = shapeValue;
-    // }
+    }
 
     timer++;
     if(timer == 400){
