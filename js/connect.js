@@ -1,7 +1,7 @@
 "use strict";
 var ip   = '192.168.1.100';
 var port = 8080;
-var server = require('/server/webServer').start(ip, port);
+var server = require('../server/webServer').start(ip, port);
 var io = require('../server/socketServer').start(server);
 var serialPort = '/dev/tty.usbmodem1421';
 var board = require('../server/firmataConnector').start(serialPort);

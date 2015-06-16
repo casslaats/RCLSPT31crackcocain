@@ -2,15 +2,6 @@
 
 var firmata = require('firmata');
 
-/**
- * firmataConnector.js
- * 
- * ABOUT
- * Connect to the Arduino via the Firmata protocol.
- *
- */
-
-// ANSI escape codes (used to color the server logs)
 var magenta = '\u001b[35m';
 var green    = '\u001b[32m';
 var red      = '\u001b[31m';

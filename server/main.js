@@ -1,5 +1,4 @@
 "use strict";
-// start the webServer
 var ip   = '192.168.1.100';
 var port = 8080;
 var server = require('./webServer').start(ip, port);
@@ -8,13 +7,13 @@ var serialPort = '/dev/tty.usbmodem1421';
 var board = require('./firmataConnector').start(serialPort);
 
 
-// Arduino is connected
+// Connect Arduino
 board.on('connection', function () {
     
-    // Set pin 13 to output
+    // Set pins to output
     board.pinMode(13, board.OUTPUT);
     
-    // WebSocket connection handler
+    // WebSocket connection 
     io.sockets.on('connection', function (socket) {
         socket.emit('msg', 'hello new user');
         console.log('client connected: '+ socket.id);
@@ -47,22 +46,3 @@ board.on('connection', function () {
 
 
 
-
-// // client connection handler
-// io.on('connection', function (socket) {
-    
-//     console.log('client connected: ' + socket.id);
-    
-//     // send message to the current client
-//     socket.emit('msg', 'hello new user');
-    
-//     // client disconnect handler
-//     socket.on('disconnect', function () {
-
-//         console.log('client disconnected: ' + socket.id);
-//     });
-// });
-// arduino.on('connection', function () {
-    
-//     console.log("successfully connected to the Arduino!");
-// });

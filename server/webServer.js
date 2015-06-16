@@ -4,20 +4,6 @@ var http     = require('http');
 var fs       = require('fs');
 var path     = require('path');
 
-/**
- * webServer.js
- *
- * Static Node Web Server.
- *
- * NODE.JS - Resources
- *     node.js - http://nodejs.org/
- *     MIME types - "http://www.freeformatter.com/mime-types-list.html"
- *     HTTP status codes - "http://en.wikipedia.org/wiki/List_of_HTTP_status_codes"
- */
-
-
-// Server settings 
-// (defaults to heroku compatible settings [curruen IP & evironment PORT])
 var IP;
 var PORT = process.env.PORT || 5000;
 
@@ -25,29 +11,21 @@ var SITE_ROOT = 'www';
 var _INDEX    = '/index.html';
 var _404      = '/404.html';
 
-
-// escape codes
 var magenta = '\u001b[35m';
 var green    = '\u001b[32m';
 var red      = '\u001b[31m';
 var reset    = '\u001b[0m';
 
 
-// normalize the name of the sites root folder
 SITE_ROOT = './'+ SITE_ROOT;
 var redirectLoop = 0;
 
-
-// create a new server instance
 var server = http.createServer(function (request, response) {
     
-    // Set the filepath
     var filePath = SITE_ROOT + (path.normalize(request.url)).toLowerCase();
     
-    // Load index.html if no file path is set
     if (filePath == SITE_ROOT+'/') filePath = SITE_ROOT + _INDEX;
     
-    // Resolve MIME types
     var extname = path.extname(filePath);
     var contentType;
     
@@ -125,7 +103,6 @@ var server = http.createServer(function (request, response) {
             contentType = 'text/plain';
     }
     
-    // Load the requested file
     fs.exists(filePath, function (exists) {
         
         if (exists) {
@@ -133,12 +110,10 @@ var server = http.createServer(function (request, response) {
             fs.readFile(filePath, function (error, content) {
 
                 if (error) {
-                    // 500 - Internal server error
                     response.writeHead(500);
                     response.end();
 
                 } else {
-                    // 200 - OK
                     response.writeHead(200, { 'Content-Type': contentType});
                     response.end(content, 'utf-8');
                 }
@@ -147,7 +122,6 @@ var server = http.createServer(function (request, response) {
 
         } else {
             
-            // Check if the request accepts a 'text/html' response. If not, return a 404 header.
             var regex = new RegExp("text/html");
             var rhc = request.headers.accept;
             var acceptHTML = rhc.match(regex);
@@ -158,7 +132,6 @@ var server = http.createServer(function (request, response) {
                 return;
             }
             
-            // 404 - Page not found, redirect loop
             switch (redirectLoop) {
                 
                 case 0: 
@@ -170,7 +143,6 @@ var server = http.createServer(function (request, response) {
                         break;
                 
                 default:
-                        // 404 - Not Found
                         response.writeHead(404);
                         break;
             }
