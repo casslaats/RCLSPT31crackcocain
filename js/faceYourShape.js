@@ -1,18 +1,20 @@
-var videoInput = document.getElementById('inputVideo');
-var positions;
-var distanceMouth;
-var i = 0;
-var ctracker = new clm.tracker({useWebGL : true});
-var averageValue = [];
-var shapeValue = 0;
-var timer = 0;
-var shapeChoice;
-var graphicSwitch = false;
-var renderer = new THREE.WebGLRenderer( { alpha: true } );;
-var shapeReturn;
-var rotation = 0;
+
+  var positions;
+  var distanceMouth;
+  var i = 0;
+  var ctracker = new clm.tracker({useWebGL : true});
+  var averageValue = [];
+  var shapeValue = 0;
+  var timer = 0;
+  var shapeChoice;
+  var graphicSwitch = false;
+  var renderer = new THREE.WebGLRenderer( { alpha: true } );;
+  var shapeReturn;
+  var rotation = 0;
+  var videoInput;
 
 function replaceFace(){
+  videoInput = document.getElementById('inputVideo');
   ctracker.init(pModel);
   getVideo();
   ctracker.start(videoInput);
@@ -109,6 +111,7 @@ function drawLoop() {
 
 
 function getVideo(){
+  videoInput = document.getElementById('inputVideo');
   navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
   window.URL = window.URL || window.webkitURL || window.msURL || window.mozURL;
   // check for camerasupport
